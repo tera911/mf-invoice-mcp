@@ -1,5 +1,5 @@
 {
-  "name": "mf-invoice-mcp",
+  "name": "@tera911/mf-invoice-mcp",
   "version": "1.0.0",
   "description": "MCP plugin for MoneyForward Cloud Invoice API v3",
   "type": "module",
@@ -7,18 +7,33 @@
   "bin": {
     "mf-invoice-mcp": "dist/index.js"
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
-    "dev": "tsc --watch"
+    "dev": "tsc --watch",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "mcp",
     "moneyforward",
-    "invoice"
+    "invoice",
+    "api",
+    "billing",
+    "quote"
   ],
-  "author": "",
+  "author": "tera911",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tera911/mf-invoice-mcp.git"
+  },
+  "homepage": "https://github.com/tera911/mf-invoice-mcp#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.0",
     "zod": "^3.22.0",

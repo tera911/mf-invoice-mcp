@@ -89,6 +89,26 @@ npm run build
 
 `~/Library/Application Support/Claude/claude_desktop_config.json` に以下を追加:
 
+#### npx を使用する場合（推奨）
+
+```json
+{
+  "mcpServers": {
+    "mf-invoice": {
+      "command": "npx",
+      "args": ["mf-invoice-mcp"],
+      "env": {
+        "MF_CLIENT_ID": "your_client_id",
+        "MF_CLIENT_SECRET": "your_client_secret",
+        "MF_CALLBACK_PORT": "8080"
+      }
+    }
+  }
+}
+```
+
+#### ローカルビルドを使用する場合
+
 ```json
 {
   "mcpServers": {
