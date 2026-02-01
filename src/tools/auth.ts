@@ -93,7 +93,7 @@ export const authTools = {
           content: [
             {
               type: 'text' as const,
-              text: `認証サーバーを起動しました (ポート: ${process.env.MF_CALLBACK_PORT || '8080'})\n\n以下のURLをブラウザで開いて認証してください:\n${authUrl}\n\n認証が完了すると自動的にトークンが保存されます。`,
+              text: `認証サーバーを起動しました (ポート: ${process.env.MF_CALLBACK_PORT || '38080'})\n\n以下のURLをブラウザで開いて認証してください:\n${authUrl}\n\n認証が完了すると自動的にトークンが保存されます。`,
             },
           ],
         };

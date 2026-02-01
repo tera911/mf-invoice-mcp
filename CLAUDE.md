@@ -39,7 +39,7 @@ src/
 - 認可URL: `https://api.biz.moneyforward.com/authorize`
 - トークンURL: `https://api.biz.moneyforward.com/token`
 - スコープ: `mfc/invoice/data.read mfc/invoice/data.write`
-- リダイレクトURI: `http://localhost:8080/callback`（ローカルサーバー方式）
+- リダイレクトURI: `http://localhost:38080/callback`（ローカルサーバー方式）
 - OOB（Out-of-Band）は非対応
 
 ### ベースURL
@@ -133,7 +133,7 @@ src/
 ## 認証フロー
 
 ### 初回認証
-1. `mf_auth_start` を実行 → ローカルサーバー起動（ポート8080）
+1. `mf_auth_start` を実行 → ローカルサーバー起動（ポート38080）
 2. 表示されたURLをブラウザで開く
 3. MoneyForwardでログイン・認可
 4. コールバックでcodeを受け取り、自動でトークン交換

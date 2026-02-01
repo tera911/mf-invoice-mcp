@@ -9,7 +9,7 @@ const TOKENS_FILE = path.join(CONFIG_DIR, 'tokens.json');
 
 const AUTH_URL = 'https://api.biz.moneyforward.com/authorize';
 const TOKEN_URL = 'https://api.biz.moneyforward.com/token';
-const DEFAULT_PORT = 8080;
+const DEFAULT_PORT = 38080;
 const DEFAULT_REDIRECT_URI = `http://localhost:${DEFAULT_PORT}/callback`;
 
 export class OAuthManager {

@@ -73,10 +73,10 @@ MoneyForward クラウド請求書 API v3 を使用した MCP プラグイン。
 ```bash
 export MF_CLIENT_ID="your_client_id"
 export MF_CLIENT_SECRET="your_client_secret"
-export MF_CALLBACK_PORT="8080"  # オプション（デフォルト: 8080）
+export MF_CALLBACK_PORT="38080"  # オプション（デフォルト: 38080）
 ```
 
-**重要**: MoneyForwardのAPIアプリケーション設定で、リダイレクトURIに `http://localhost:8080/callback` を登録してください。
+**重要**: MoneyForwardのAPIアプリケーション設定で、リダイレクトURIに `http://localhost:38080/callback` を登録してください。
 
 ### 3. ビルド
 
@@ -100,7 +100,7 @@ npm run build
       "env": {
         "MF_CLIENT_ID": "your_client_id",
         "MF_CLIENT_SECRET": "your_client_secret",
-        "MF_CALLBACK_PORT": "8080"
+        "MF_CALLBACK_PORT": "38080"
       }
     }
   }
@@ -118,7 +118,7 @@ npm run build
       "env": {
         "MF_CLIENT_ID": "your_client_id",
         "MF_CLIENT_SECRET": "your_client_secret",
-        "MF_CALLBACK_PORT": "8080"
+        "MF_CALLBACK_PORT": "38080"
       }
     }
   }
@@ -132,7 +132,7 @@ npm run build
 3. MoneyForward にログインして認可
 4. 認証完了後、自動的にトークンが保存される
 
-**注意**: 認証時はポート8080（またはMF_CALLBACK_PORTで指定したポート）が空いている必要があります。
+**注意**: 認証時はポート38080（またはMF_CALLBACK_PORTで指定したポート）が空いている必要があります。
 
 ## 使用例
 
