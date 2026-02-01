@@ -96,7 +96,7 @@ npm run build
   "mcpServers": {
     "mf-invoice": {
       "command": "npx",
-      "args": ["mf-invoice-mcp"],
+      "args": ["@tera911/mf-invoice-mcp"],
       "env": {
         "MF_CLIENT_ID": "your_client_id",
         "MF_CLIENT_SECRET": "your_client_secret",
