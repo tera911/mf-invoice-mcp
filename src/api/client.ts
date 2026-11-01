@@ -10,6 +10,16 @@ export interface RequestOptions {
   params?: Record<string, string | number | undefined>;
 }
 
+const MAX_RATE_LIMIT_RETRIES = 3;
+
+// Reject IDs that could rewrite the request path (e.g. "../", "?", "#")
+export function pathId(id: string): string {
+  if (!/^[A-Za-z0-9_-]+$/.test(id)) {
+    throw new Error(`Invalid ID: ${JSON.stringify(id).slice(0, 64)}`);
+  }
+  return id;
+}
+
 export class ApiClient {
   private baseUrl: string;
   private oauthManager: OAuthManager;
@@ -19,7 +29,7 @@ export class ApiClient {
     this.oauthManager = oauthManager;
   }
 
-  private async request<T>(endpoint: string, options: RequestOptions = {}): Promise<T> {
+  private async request<T>(endpoint: string, options: RequestOptions = {}, retries = 0): Promise<T> {
     await rateLimiter.waitForSlot();
 
     const accessToken = await this.oauthManager.getAccessToken();
@@ -51,11 +61,11 @@ export class ApiClient {
     });
 
     if (!response.ok) {
-      if (response.status === 429) {
+      if (response.status === 429 && retries < MAX_RATE_LIMIT_RETRIES) {
         // Rate limit exceeded - wait and retry
-        const retryAfter = parseInt(response.headers.get('Retry-After') || '1', 10);
+        const retryAfter = Math.min(parseInt(response.headers.get('Retry-After') || '1', 10) || 1, 30);
         await new Promise(resolve => setTimeout(resolve, retryAfter * 1000));
-        return this.request<T>(endpoint, options);
+        return this.request<T>(endpoint, options, retries + 1);
       }
 
       let errorMessage = `API request failed: ${response.status} ${response.statusText}`;

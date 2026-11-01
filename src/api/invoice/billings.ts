@@ -1,4 +1,4 @@
-import { getInvoiceClient } from '../client.js';
+import { getInvoiceClient, pathId } from '../client.js';
 import type {
   Billing,
   BillingItem,
@@ -25,7 +25,7 @@ export async function listBillings(params?: ListBillingsParams): Promise<ListRes
 }
 
 export async function getBilling(billingId: string): Promise<Billing> {
-  return getInvoiceClient().get<Billing>(`/billings/${billingId}`);
+  return getInvoiceClient().get<Billing>(`/billings/${pathId(billingId)}`);
 }
 
 export async function createBilling(params: CreateBillingParams): Promise<Billing> {
@@ -35,7 +35,7 @@ export async function createBilling(params: CreateBillingParams): Promise<Billin
 }
 
 export async function addBillingItem(billingId: string, item: AddBillingItemParams): Promise<BillingItem> {
-  return getInvoiceClient().post<BillingItem>(`/billings/${billingId}/items`, { item });
+  return getInvoiceClient().post<BillingItem>(`/billings/${pathId(billingId)}/items`, { item });
 }
 
 // インボイス制度対応の請求書作成
@@ -58,15 +58,15 @@ export async function createBillingFromQuote(params: CreateBillingFromQuoteParam
 }
 
 export async function updateBilling(billingId: string, params: UpdateBillingParams): Promise<Billing> {
-  return getInvoiceClient().patch<Billing>(`/billings/${billingId}`, { billing: params });
+  return getInvoiceClient().patch<Billing>(`/billings/${pathId(billingId)}`, { billing: params });
 }
 
 export async function updatePaymentStatus(params: UpdatePaymentStatusParams): Promise<Billing> {
-  return getInvoiceClient().patch<Billing>(`/billings/${params.billing_id}`, {
+  return getInvoiceClient().patch<Billing>(`/billings/${pathId(params.billing_id)}`, {
     billing: { payment_status: params.payment_status },
   });
 }
 
 export async function downloadBillingPdf(billingId: string): Promise<{ pdf_url: string }> {
-  return getInvoiceClient().get<{ pdf_url: string }>(`/billings/${billingId}/pdf`);
+  return getInvoiceClient().get<{ pdf_url: string }>(`/billings/${pathId(billingId)}/pdf`);
 }

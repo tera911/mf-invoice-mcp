@@ -1,4 +1,4 @@
-import { getInvoiceClient } from '../client.js';
+import { getInvoiceClient, pathId } from '../client.js';
 import type { Partner, PartnerDepartment, ListPartnersParams, ListResponse } from '../../types/index.js';
 
 export async function listPartners(params?: ListPartnersParams): Promise<ListResponse<Partner>> {
@@ -10,9 +10,9 @@ export async function listPartners(params?: ListPartnersParams): Promise<ListRes
 }
 
 export async function getPartner(partnerId: string): Promise<Partner> {
-  return getInvoiceClient().get<Partner>(`/partners/${partnerId}`);
+  return getInvoiceClient().get<Partner>(`/partners/${pathId(partnerId)}`);
 }
 
 export async function listPartnerDepartments(partnerId: string): Promise<{ data: PartnerDepartment[] }> {
-  return getInvoiceClient().get<{ data: PartnerDepartment[] }>(`/partners/${partnerId}/departments`);
+  return getInvoiceClient().get<{ data: PartnerDepartment[] }>(`/partners/${pathId(partnerId)}/departments`);
 }

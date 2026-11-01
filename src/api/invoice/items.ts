@@ -1,4 +1,4 @@
-import { getInvoiceClient } from '../client.js';
+import { getInvoiceClient, pathId } from '../client.js';
 import type { Item, ListItemsParams, ListResponse } from '../../types/index.js';
 
 export async function listItems(params?: ListItemsParams): Promise<ListResponse<Item>> {
@@ -10,5 +10,5 @@ export async function listItems(params?: ListItemsParams): Promise<ListResponse<
 }
 
 export async function getItem(itemId: string): Promise<Item> {
-  return getInvoiceClient().get<Item>(`/items/${itemId}`);
+  return getInvoiceClient().get<Item>(`/items/${pathId(itemId)}`);
 }

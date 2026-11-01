@@ -1,4 +1,4 @@
-import { getExpenseClient } from '../client.js';
+import { getExpenseClient, pathId } from '../client.js';
 import type { ExReport, ExTransaction } from '../../types/index.js';
 
 export async function listMyExReports(officeId: string, params?: {
@@ -6,7 +6,7 @@ export async function listMyExReports(officeId: string, params?: {
   limit?: number;
 }): Promise<ExReport[]> {
   const result = await getExpenseClient().get<{ ex_reports?: ExReport[] }>(
-    `/offices/${officeId}/me/ex_reports`,
+    `/offices/${pathId(officeId)}/me/ex_reports`,
     {
       page: params?.page,
       limit: params?.limit,
@@ -17,7 +17,7 @@ export async function listMyExReports(officeId: string, params?: {
 
 export async function getExReport(officeId: string, reportId: string): Promise<ExReport> {
   return getExpenseClient().get<ExReport>(
-    `/offices/${officeId}/me/ex_reports/${reportId}`
+    `/offices/${pathId(officeId)}/me/ex_reports/${pathId(reportId)}`
   );
 }
 
@@ -26,7 +26,7 @@ export async function listReportTransactions(officeId: string, reportId: string,
   limit?: number;
 }): Promise<ExTransaction[]> {
   const result = await getExpenseClient().get<{ ex_transactions?: ExTransaction[] }>(
-    `/offices/${officeId}/ex_reports/${reportId}/ex_transactions`,
+    `/offices/${pathId(officeId)}/ex_reports/${pathId(reportId)}/ex_transactions`,
     {
       page: params?.page,
       limit: params?.limit,
@@ -37,14 +37,14 @@ export async function listReportTransactions(officeId: string, reportId: string,
 
 export async function approveExReport(officeId: string, reportId: string): Promise<ExReport> {
   return getExpenseClient().post<ExReport>(
-    `/offices/${officeId}/me/approving_ex_reports/${reportId}/approve`,
+    `/offices/${pathId(officeId)}/me/approving_ex_reports/${pathId(reportId)}/approve`,
     {}
   );
 }
 
 export async function disapproveExReport(officeId: string, reportId: string): Promise<ExReport> {
   return getExpenseClient().post<ExReport>(
-    `/offices/${officeId}/me/approving_ex_reports/${reportId}/disapprove`,
+    `/offices/${pathId(officeId)}/me/approving_ex_reports/${pathId(reportId)}/disapprove`,
     {}
   );
 }

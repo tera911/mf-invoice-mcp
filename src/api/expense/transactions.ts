@@ -1,4 +1,4 @@
-import { getExpenseClient } from '../client.js';
+import { getExpenseClient, pathId } from '../client.js';
 import type {
   ExTransaction,
   CreateExTransactionParams,
@@ -20,7 +20,7 @@ export async function listMyExTransactions(officeId: string, params?: {
     'query_object[is_reported]': params?.is_reported !== undefined ? String(params.is_reported) : undefined,
   };
   const result = await getExpenseClient().get<{ ex_transactions?: ExTransaction[] }>(
-    `/offices/${officeId}/me/ex_transactions`,
+    `/offices/${pathId(officeId)}/me/ex_transactions`,
     query
   );
   return result.ex_transactions || [];
@@ -28,14 +28,14 @@ export async function listMyExTransactions(officeId: string, params?: {
 
 export async function getExTransaction(officeId: string, transactionId: string): Promise<ExTransaction> {
   return getExpenseClient().get<ExTransaction>(
-    `/offices/${officeId}/me/ex_transactions/${transactionId}`
+    `/offices/${pathId(officeId)}/me/ex_transactions/${pathId(transactionId)}`
   );
 }
 
 export async function createExTransaction(params: CreateExTransactionParams): Promise<ExTransaction> {
   const { office_id, ...body } = params;
   return getExpenseClient().post<ExTransaction>(
-    `/offices/${office_id}/me/ex_transactions`,
+    `/offices/${pathId(office_id)}/me/ex_transactions`,
     { ex_transaction: body }
   );
 }
@@ -46,11 +46,11 @@ export async function updateExTransaction(
   params: UpdateExTransactionParams
 ): Promise<ExTransaction> {
   return getExpenseClient().put<ExTransaction>(
-    `/offices/${officeId}/me/ex_transactions/${transactionId}`,
+    `/offices/${pathId(officeId)}/me/ex_transactions/${pathId(transactionId)}`,
     { ex_transaction: params }
   );
 }
 
 export async function deleteExTransaction(officeId: string, transactionId: string): Promise<void> {
-  await getExpenseClient().delete(`/offices/${officeId}/me/ex_transactions/${transactionId}`);
+  await getExpenseClient().delete(`/offices/${pathId(officeId)}/me/ex_transactions/${pathId(transactionId)}`);
 }

@@ -1,4 +1,4 @@
-import { getExpenseClient } from '../client.js';
+import { getExpenseClient, pathId } from '../client.js';
 import type { UploadReceiptResponse } from '../../types/index.js';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
@@ -12,7 +12,7 @@ export async function uploadReceipt(officeId: string, filePath: string): Promise
   formData.append('receipt[file]', blob, fileName);
 
   return getExpenseClient().postFormData<UploadReceiptResponse>(
-    `/offices/${officeId}/me/upload_receipt`,
+    `/offices/${pathId(officeId)}/me/upload_receipt`,
     formData
   );
 }

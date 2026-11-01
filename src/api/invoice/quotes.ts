@@ -1,4 +1,4 @@
-import { getInvoiceClient } from '../client.js';
+import { getInvoiceClient, pathId } from '../client.js';
 import type {
   Quote,
   Billing,
@@ -21,7 +21,7 @@ export async function listQuotes(params?: ListQuotesParams): Promise<ListRespons
 }
 
 export async function getQuote(quoteId: string): Promise<Quote> {
-  return getInvoiceClient().get<Quote>(`/quotes/${quoteId}`);
+  return getInvoiceClient().get<Quote>(`/quotes/${pathId(quoteId)}`);
 }
 
 export async function createQuote(params: CreateQuoteParams): Promise<Quote> {
@@ -29,14 +29,14 @@ export async function createQuote(params: CreateQuoteParams): Promise<Quote> {
 }
 
 export async function updateQuote(quoteId: string, params: UpdateQuoteParams): Promise<Quote> {
-  return getInvoiceClient().patch<Quote>(`/quotes/${quoteId}`, params);
+  return getInvoiceClient().patch<Quote>(`/quotes/${pathId(quoteId)}`, params);
 }
 
 export async function downloadQuotePdf(quoteId: string): Promise<{ pdf_url: string }> {
-  return getInvoiceClient().get<{ pdf_url: string }>(`/quotes/${quoteId}/pdf`);
+  return getInvoiceClient().get<{ pdf_url: string }>(`/quotes/${pathId(quoteId)}/pdf`);
 }
 
 // 見積書を請求書に変換
 export async function convertQuoteToBilling(quoteId: string): Promise<Billing> {
-  return getInvoiceClient().post<Billing>(`/quotes/${quoteId}/convert_to_billing`, {});
+  return getInvoiceClient().post<Billing>(`/quotes/${pathId(quoteId)}/convert_to_billing`, {});
 }
